@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -39,7 +41,7 @@ namespace GPass
         //    data = core.OpenFile(file,login, password);
         //}
 
-        private string FileName = "";
+        private string FileName = "Select file";
         private byte[] Login;
         private byte[] Password;
 
@@ -48,7 +50,6 @@ namespace GPass
             Core core = new Core();
             try
             {
-                FileName = _fileName;
                 Login = _login;
                 Password = _password;
                 XmlElement root = core.ParseFile(_fileName, _login, _password);
@@ -62,6 +63,27 @@ namespace GPass
                 core.AddLog(ex.ToString());
                 MessageBox.Show("Не удалось открыть базу.", "Ошибка");
                 Environment.Exit(0);
+            }
+        }
+
+        private void SetNewFileName(string _fileName)
+        {
+            if (_fileName == "Select file")
+            {
+                string name = "NewBase";
+                int index = 1;
+
+                while (File.Exists(name + index.ToString() + ".gb"))
+                {
+                    index++;
+                }
+                fileNameTextBox.Text = name + index.ToString() + ".gb";
+                FileName = fileNameTextBox.Text;
+            }
+            else
+            {
+                fileNameTextBox.Text = _fileName;
+                FileName = fileNameTextBox.Text;
             }
         }
 
@@ -82,7 +104,7 @@ namespace GPass
             Core core = new Core();
             try
             {
-                FileName = _fileName;
+                SetNewFileName(_fileName);
                 Login = _login;
                 Password = _password;
             }
@@ -142,7 +164,20 @@ namespace GPass
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Core core = new Core();
+            if (!Regex.IsMatch(FileName, @"^\w*.gb$"))
+            {
+                if (Regex.IsMatch(FileName, @"^\w*$"))
+                { FileName += ".gb"; }
+                else
+                { 
+                    SetNewFileName("Select file"); 
+                }
+            }
+
+
+
+
+                Core core = new Core();
             try
             {
                 if (listBox.Items.Count != 0)
@@ -206,7 +241,8 @@ namespace GPass
                 XmlElement element = (XmlElement)item.Tag;
                 root.AppendChild(element);
             }
-            core.GenerateFile(FileName, Login, Password, root);
+
+                core.GenerateFile(FileName, Login, Password, root);
         }
 
         private void menuDelete_Click(object sender, RoutedEventArgs e)
@@ -222,6 +258,7 @@ namespace GPass
         public void SetLabelStatus(string _text)
         {
             textBlockStatus.Text = "Статус: " + _text;
+            textBlockStatus.Background = Brushes.Cyan;
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += ClearStatusByTimer;
@@ -230,6 +267,7 @@ namespace GPass
         private void ClearStatusByTimer(object sender, EventArgs e)
         {
             textBlockStatus.Text = "Статус:";
+            textBlockStatus.Background = null;
         }
 
         public string GetPass(byte[] _data)
@@ -241,6 +279,11 @@ namespace GPass
         {
             Core core = new Core();
             return core.EncryptPass(_data, Login, Password);
+        }
+
+        private void fileNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FileName = fileNameTextBox.Text;
         }
     }
 }

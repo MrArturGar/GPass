@@ -73,10 +73,8 @@ namespace GPass
                 fileComboBox.Items.Add(item);
             }
 
-            if (fileComboBox.Items.Count == 1)
-                fileComboBox.SelectedIndex = 0;
-            else
-                fileComboBox.Text = "Select file";
+            if (fileComboBox.Items.Count == 2)
+                fileComboBox.SelectedIndex = 1;
 
             ComboBox_SelectionChanged(null, null);
         }

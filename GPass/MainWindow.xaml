@@ -11,7 +11,7 @@
             <ListBox Name="listBox" BorderBrush="Black" Background="White" Loaded="listBox_Loaded" SelectionChanged="listBox_SelectionChanged"/>
         </Grid>
         <WrapPanel Name="wrapPanel" Margin="335,25,10,10" Background="#FF040404" Width="450"/>
-        <Menu Height="20" VerticalAlignment="Top">
+        <Menu Height="20" VerticalAlignment="Top" Margin="0,0,154,0">
             <MenuItem Name="menuAddTitle" Header="Добавить данные" Click="menuAddTitle_Click"/>
             <MenuItem Name="menuDelete" Header="Удалить" Click="menuDelete_Click"/>
             <MenuItem Name="menuAddElement" Header="Добавить поле">
@@ -21,5 +21,6 @@
             </MenuItem>
             <TextBlock Name="textBlockStatus" Text="Статус: " Height="20"/>
         </Menu>
+        <TextBox Name="fileNameTextBox" Height="20" Margin="640,0,0,0" TextWrapping="Wrap" Text="FileName" VerticalAlignment="Top" TextChanged="fileNameTextBox_TextChanged"/>
     </Grid>
 </Window>
