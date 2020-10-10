@@ -183,10 +183,13 @@ namespace GPass
 
         private void textBox_CopyName(object sender, MouseButtonEventArgs e)
         {
-            string buffer = textBoxName.Text;
-            Clipboard.SetText(buffer);
-            Window window = GetMainWindowLink();
-            (window as MainWindow).SetLabelStatus("Скопировано");
+            if (!editable)
+            {
+                string buffer = textBoxName.Text;
+                Clipboard.SetText(buffer);
+                Window window = GetMainWindowLink();
+                (window as MainWindow).SetLabelStatus("Скопировано");
+            }
         }
 
         private void textBox_CopyData(object sender, MouseButtonEventArgs e)

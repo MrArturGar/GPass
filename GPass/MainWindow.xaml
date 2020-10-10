@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GPass"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="MainWindow" Height="450" Width="813" Closing="Window_Closing" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid Margin="10,25,0,10" Background="#FFE6E6E6" HorizontalAlignment="Left" Width="320">
             <ListBox Name="listBox" BorderBrush="Black" Background="White" Loaded="listBox_Loaded" SelectionChanged="listBox_SelectionChanged"/>
         </Grid>
-        <WrapPanel Name="wrapPanel" Margin="335,25,10,10" Background="#FF040404" Width="450"/>
-        <Menu Height="20" VerticalAlignment="Top" Margin="0,0,154,0">
+        <ScrollViewer Margin="335,25,10,10">
+            <WrapPanel Name="wrapPanel" Background="#FF040404" Width="450" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </ScrollViewer>
+        <Menu Height="20" VerticalAlignment="Top" Margin="0,0,214,0">
             <MenuItem Name="menuAddTitle" Header="Добавить данные" Click="menuAddTitle_Click"/>
             <MenuItem Name="menuDelete" Header="Удалить" Click="menuDelete_Click"/>
             <MenuItem Name="menuAddElement" Header="Добавить поле">
@@ -21,6 +23,6 @@
             </MenuItem>
             <TextBlock Name="textBlockStatus" Text="Статус: " Height="20"/>
         </Menu>
-        <TextBox Name="fileNameTextBox" Height="20" Margin="640,0,0,0" TextWrapping="Wrap" Text="FileName" VerticalAlignment="Top" TextChanged="fileNameTextBox_TextChanged"/>
+        <TextBox Name="fileNameTextBox" Height="20" Margin="570,0,9,0" TextWrapping="Wrap" Text="FileName" VerticalAlignment="Top" TextChanged="fileNameTextBox_TextChanged"/>
     </Grid>
 </Window>

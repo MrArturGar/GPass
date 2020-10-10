@@ -25,12 +25,14 @@ namespace GPass
         }
         private void SaveFile(string _fileName, byte[] _login, byte[] _password, string _data)
         {
-            Crypto cr = new Crypto();
+             Crypto cr = new Crypto();
             byte[] buffer = Encoding.Default.GetBytes(_data);
             buffer = cr.Encrypt(_login, _password, buffer);
-            byte[] fileOld = File.ReadAllBytes(MainPath + _fileName);
+            byte[] fileOld = File.Exists(MainPath + _fileName) ? File.ReadAllBytes(MainPath + _fileName) :null;
 
-            if (!buffer.SequenceEqual(fileOld))
+            if (fileOld == null)
+                File.WriteAllBytes(MainPath + _fileName, buffer);
+            else if (!buffer.SequenceEqual(fileOld))
             {
                 var diagResult = MessageBox.Show("Сохранить базу?", "Внимание!", MessageBoxButton.YesNo);
                 if (diagResult == MessageBoxResult.Yes)

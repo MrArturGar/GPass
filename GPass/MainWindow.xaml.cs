@@ -227,8 +227,11 @@ namespace GPass
                 }
             else
             {
-                _element.SetAttribute("Id", lines.Count.ToString());
-                XMLItem.AppendChild(_element);
+                if (_element != null)
+                {
+                    _element.SetAttribute("Id", lines.Count.ToString());
+                    XMLItem.AppendChild(_element);
+                }
             }
         }
 
