@@ -32,6 +32,7 @@ namespace GPass
             textBoxName.AddHandler(FrameworkElement.MouseLeftButtonDownEvent, new MouseButtonEventHandler(textBox_CopyName), true);
             textBoxData.AddHandler(FrameworkElement.MouseLeftButtonDownEvent, new MouseButtonEventHandler(textBox_CopyData), true);
         }
+
         public bool encrypt = false;
         public bool multiline = false;
         private string forEncryptText = "••••••••••••••••";
@@ -59,7 +60,8 @@ namespace GPass
                 if (encrypt)
                 {
                     if (textBoxData.Tag != null)
-                        textBoxData.Text = (window as MainWindow).GetPass(Encoding.UTF8.GetBytes((string)textBoxData.Tag));
+                        textBoxData.Text = (window as MainWindow).GetPass((string)textBoxData.Tag);
+                    //textBoxData.Text = (window as MainWindow).GetPass(Encoding.UTF8.GetBytes((string)textBoxData.Tag));
                     else
                         textBoxData.Text = "";
                 }
@@ -75,7 +77,8 @@ namespace GPass
 
                 if (encrypt)
                 {
-                        textBoxData.Tag = Encoding.UTF8.GetString((window as MainWindow).SetPass(Encoding.UTF8.GetBytes(textBoxData.Text)));
+                    textBoxData.Tag = ((window as MainWindow).SetPass(textBoxData.Text));
+                    //textBoxData.Tag = Encoding.UTF8.GetString((window as MainWindow).SetPass(Encoding.UTF8.GetBytes(textBoxData.Text)));
                     textBoxData.Text = forEncryptText;
                 }
             SaveXML();
@@ -150,6 +153,9 @@ namespace GPass
 
             if (multiline)
             {
+                textBoxData.AcceptsReturn = true;
+                textBoxData.AcceptsTab = true;
+                textBoxData.TextWrapping = TextWrapping.Wrap;
                 textBoxData.Width = 430;
                 textBoxData.Height = 100;
                 textBoxName.Width += 200;
@@ -191,8 +197,10 @@ namespace GPass
                 string buffer = "";
                 if (encrypt)
                 {
-                    byte[] pass = Encoding.UTF8.GetBytes((string)textBoxData.Tag);
-                    buffer = (window as MainWindow).GetPass(pass);
+                    //byte[] pass = Encoding.UTF8.GetBytes((string)textBoxData.Tag);
+                    //byte[] pass =Convert.FromBase64String((string)textBoxData.Tag);
+                    //buffer = (window as MainWindow).GetPass(pass);
+                    buffer = (window as MainWindow).GetPass((string)textBoxData.Tag);
                 }
                 else
                     buffer = textBoxData.Text;

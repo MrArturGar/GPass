@@ -41,7 +41,7 @@ namespace GPass
         //    data = core.OpenFile(file,login, password);
         //}
 
-        private string FileName = "Select file";
+        private string FileName = "New file";
         private byte[] Login;
         private byte[] Password;
 
@@ -52,6 +52,7 @@ namespace GPass
             {
                 Login = _login;
                 Password = _password;
+                fileNameTextBox.Text = _fileName;
                 XmlElement root = core.ParseFile(_fileName, _login, _password);
                 foreach (XmlElement element in root.ChildNodes)
                 {
@@ -68,7 +69,7 @@ namespace GPass
 
         private void SetNewFileName(string _fileName)
         {
-            if (_fileName == "Select file")
+            if (_fileName == "New file")
             {
                 string name = "NewBase";
                 int index = 1;
@@ -170,7 +171,7 @@ namespace GPass
                 { FileName += ".gb"; }
                 else
                 { 
-                    SetNewFileName("Select file"); 
+                    SetNewFileName("New file"); 
                 }
             }
 
@@ -270,15 +271,16 @@ namespace GPass
             textBlockStatus.Background = null;
         }
 
-        public string GetPass(byte[] _data)
+        public string GetPass(string _data)
         {
             Core core = new Core();
-            return core.DencryptPass(_data, Login, Password);
+            byte[] dataBytes = Convert.FromBase64String(_data);
+            return core.DencryptPass(dataBytes, Login, Password);
         }
-        public byte[] SetPass(byte[] _data)
+        public string SetPass(string _data)
         {
             Core core = new Core();
-            return core.EncryptPass(_data, Login, Password);
+            return Convert.ToBase64String(core.EncryptPass(_data, Login, Password));
         }
 
         private void fileNameTextBox_TextChanged(object sender, TextChangedEventArgs e)

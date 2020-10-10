@@ -51,12 +51,9 @@ namespace GPass
             GenerateTextCaptcha();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void fileComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (fileComboBox.SelectedIndex == -1)
-                buttonStart.IsEnabled = false;
-            else
-                buttonStart.IsEnabled = true;
+            inputDataChanged(null, null);
         }
 
         private void CheckDataBases()
@@ -76,7 +73,7 @@ namespace GPass
             if (fileComboBox.Items.Count == 2)
                 fileComboBox.SelectedIndex = 1;
 
-            ComboBox_SelectionChanged(null, null);
+            fileComboBox_SelectionChanged(null, null);
         }
 
         private void buttonNewBase_Click(object sender, RoutedEventArgs e)
@@ -95,6 +92,26 @@ namespace GPass
             }
 
             GenerateTextCaptcha();
+        }
+
+        private void inputDataChanged(object sender, RoutedEventArgs e)
+        {
+            if ((loginBox.Password.Length != 0) && (passwordBox.Password.Length != 0)&&(fileComboBox.SelectedIndex != 0))
+            {
+                buttonStart.IsEnabled = true;
+                buttonNewBase.IsEnabled = false;
+            }
+            else if ((loginBox.Password.Length != 0) && (passwordBox.Password.Length != 0) && (fileComboBox.SelectedIndex == 0))
+            {
+                buttonStart.IsEnabled = false;
+                buttonNewBase.IsEnabled = true;
+            }
+            else
+            {
+                buttonStart.IsEnabled = false;
+                buttonNewBase.IsEnabled = false;
+            }
+
         }
 
         private void GenerateTextCaptcha()

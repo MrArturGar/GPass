@@ -7,18 +7,18 @@
         mc:Ignorable="d"
         Title="GJoin" Height="236" Width="338" ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
-        <PasswordBox Name="loginBox" HorizontalAlignment="Left" Margin="90,56,0,0" VerticalAlignment="Top" Width="225" Height="20"/>
+        <PasswordBox Name="loginBox" HorizontalAlignment="Left" Margin="90,56,0,0" VerticalAlignment="Top" Width="225" Height="20" PasswordChanged="inputDataChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Авторизация" VerticalAlignment="Top" Height="35" Width="145" FontSize="22" FontWeight="Bold"/>
-        <Button Name="buttonStart" Content="Start" HorizontalAlignment="Left" Margin="245,172,0,0" VerticalAlignment="Top" Width="70" Click="buttonStart_Click"/>
+        <Button Name="buttonStart" Content="Start" HorizontalAlignment="Left" Margin="245,172,0,0" VerticalAlignment="Top" Width="70" Click="buttonStart_Click" IsEnabled="False"/>
         <Label Content="Псевдоним: " HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="Пароль: " HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top" Width="55"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="90,81,0,0" VerticalAlignment="Top" Width="225" Height="20"/>
-        <Button Name="buttonNewBase" Content="Создать хранилище" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="120" Click="buttonNewBase_Click"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="90,81,0,0" VerticalAlignment="Top" Width="225" Height="20" PasswordChanged="inputDataChanged"/>
+        <Button Name="buttonNewBase" Content="Создать хранилище" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="120" Click="buttonNewBase_Click" IsEnabled="False"/>
         <Label Content="Антибот: " HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top"/>
         <TextBlock Name="captchaTextBlock" HorizontalAlignment="Left" Margin="90,149,0,0" TextWrapping="Wrap" Text="Captcha" VerticalAlignment="Top" Width="170" TextAlignment="Right"/>
         <TextBox Name="captchaTextBox" HorizontalAlignment="Left" Height="23" Margin="265,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-        <ComboBox Text="Select file" Name="fileComboBox" HorizontalAlignment="Left" Margin="90,106,0,0" VerticalAlignment="Top" Width="225" SelectionChanged="ComboBox_SelectionChanged" Height="23">
-            <ComboBoxItem Content="Select file" IsSelected="True"/>
+        <ComboBox Text="New file" Name="fileComboBox" HorizontalAlignment="Left" Margin="90,106,0,0" VerticalAlignment="Top" Width="225" SelectionChanged="fileComboBox_SelectionChanged" Height="23">
+            <ComboBoxItem Content="New file" IsSelected="True"/>
         </ComboBox>
         <Label Content="Хранилище: " HorizontalAlignment="Left" Margin="11,104,0,0" VerticalAlignment="Top"/>
 
